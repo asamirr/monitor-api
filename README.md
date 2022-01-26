@@ -4,7 +4,7 @@ A REST API to monitor the activity of some given URLs and store logs. Also, it n
 
 The API is built using **Node.js**, **Express** and **Typescript**, **PostgreSQL** and **Prisma** for the database, **Prettier** for linting and finally, **Swagger** for documenting and testing the endpoints.
 
----
+
 ### Usage
 
 First, clone the repo locally on your machine, `cd monitor-api` to get started.
@@ -17,7 +17,6 @@ Get back to the root folder, you'll need to apply Prisma's database migrations `
 
 You could run the app now and start playing around with it. Just `npm run dev`, head to http://localhost:3000/api-docs/ to go through the api endpoints and test them if you'd like.
 
----
 
 ### Testing Flow
 
@@ -30,7 +29,7 @@ You could run the app now and start playing around with it. Just `npm run dev`, 
 4. Now you can start testing the checks endpoints.
 
 ---
-##### N.B.
+### N.B.
 
 1. Swagger doesn't let you add use a request body in a GET request so here's a pic of it from Postman.
 
