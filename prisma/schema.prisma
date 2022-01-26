@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  email String @unique
+  password String
+  verifCode Int
+  isVerified Boolean
+} 
+
+model Check {
+  checkId Int @id @default(autoincrement())
+  name String @unique
+  url String
+  protocol String
+  path String?
+  port Int?
+  webhook String?
+  timeout Int? @default(5)
+  interval Int? @default(10)
+  threshold Int? @default(1)
+  authentication String? 
+  httpHeaders String?
+  assert Int?
+  tags String? 
+  ignoreSSL Boolean
+}
+
+model Report {
+  id Int @id @default(autoincrement())
+  name String @unique
+  status String
+  availability Float
+  outages Int
+  downTime Int
+  upTime Int
+  created_at DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Logs {
+  id Int @id @default(autoincrement())
+  name String
+  status String
+  creation_time DateTime @default(now())
+}

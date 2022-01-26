@@ -1,0 +1,706 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Monitoring URLs for Bosta",
+    "version": "1.0.0",
+    "title": "Bosta Monitoring API",
+    "termsOfService": "http://swagger.io/terms/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "check",
+      "description": "Several operations on URL checking"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "description": "",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "paths": {
+    "/check/create": {
+      "post": {
+        "tags": [
+          "check"
+        ],
+        "summary": "Creates a check for a specific URL",
+        "description": "",
+        "operationId": "createCheck",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "params for a valid check",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Check"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CheckCreateResp"
+            }
+          },
+          "400": {
+            "description": "This check already exists!"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/check/edit": {
+      "post": {
+        "tags": [
+          "check"
+        ],
+        "summary": "Edits an existing check for a specific URL",
+        "description": "",
+        "operationId": "editCheck",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "params for a valid edit check",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckEdit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CheckEditResp"
+            }
+          },
+          "400": {
+            "description": "Check update didn't go well"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/check/run": {
+      "post": {
+        "tags": [
+          "check"
+        ],
+        "summary": "Runs a specific check using its name",
+        "description": "",
+        "operationId": "runCheck",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "only name is required in params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckRun"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "We just ran your check!"
+          },
+          "404": {
+            "description": "This check doesn't exist"
+          }
+        }
+      }
+    },
+    "/check/remove": {
+      "post": {
+        "tags": [
+          "check"
+        ],
+        "summary": "Removes an existing check for a specific URL",
+        "description": "",
+        "operationId": "placeOrder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "params for a valid edit check",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckRemove"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CheckDeleteResp"
+            }
+          },
+          "404": {
+            "description": "Check doesn't exist."
+          }
+        }
+      }
+    },
+    "/check/report": {
+      "get": {
+        "tags": [
+          "check"
+        ],
+        "summary": "Retrieve detailed report on a URL check",
+        "description": "Info on availability, downtime, uptime, etc...",
+        "operationId": "getReport",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckReport"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CheckReportResp"
+            }
+          },
+          "404": {
+            "description": "Report wasn't found."
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Register as a new user",
+        "description": "",
+        "operationId": "createUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RegisterResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "This should be done after you visit /verify for verification",
+        "description": "",
+        "operationId": "userLogin",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Login user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Login400Resp"
+            }
+          },
+          "401": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Login401Resp"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/verify": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Verify your registration to be able to login",
+        "description": "",
+        "operationId": "verifyUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object for verification consisting of email and a verification code",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Verify"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Verify200Resp"
+            }
+          },
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Verify201Resp"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Verify400Resp"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "asam"
+        },
+        "email": {
+          "type": "string",
+          "example": "ahmed@samir.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "aabb"
+        }
+      }
+    },
+    "UserLogin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "ahmed@samir.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "aabb"
+        }
+      }
+    },
+    "RegisterResp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": true
+        },
+        "verificationCode": {
+          "type": "integer",
+          "example": 6889
+        }
+      }
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": true
+        },
+        "accessToken": {
+          "type": "string",
+          "example": "ewe3223eeded904u33984duj398uh"
+        }
+      }
+    },
+    "Login400Resp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": false
+        },
+        "error": {
+          "type": "string",
+          "example": "Invalid Passwooord"
+        }
+      }
+    },
+    "Login401Resp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": false
+        },
+        "error": {
+          "type": "string",
+          "example": "Wrong username"
+        }
+      }
+    },
+    "Verify": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "assa@ff.com"
+        },
+        "verifCode": {
+          "type": "integer",
+          "example": 6889
+        }
+      }
+    },
+    "Verify201Resp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "You're now verified!"
+        }
+      }
+    },
+    "Verify200Resp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "You're already verified stop wasting our time"
+        }
+      }
+    },
+    "Verify400Resp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": false
+        },
+        "error": {
+          "type": "string",
+          "example": "Wrong code babes"
+        }
+      }
+    },
+    "Check": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Test"
+        },
+        "url": {
+          "type": "string",
+          "example": "netflix.com"
+        },
+        "protocol": {
+          "type": "string",
+          "example": "https"
+        },
+        "path": {
+          "type": "string",
+          "example": "/"
+        },
+        "port": {
+          "type": "integer",
+          "example": 8000
+        },
+        "timeout": {
+          "type": "integer",
+          "example": 5
+        },
+        "interval": {
+          "type": "integer",
+          "example": 10
+        },
+        "threshold": {
+          "type": "integer",
+          "example": 1
+        },
+        "authentication": {
+          "type": "string",
+          "example": "{'email':'as@df.com','password':'abc456'}"
+        },
+        "httpHeaders": {
+          "type": "string",
+          "example": ""
+        },
+        "assertStatusCode": {
+          "type": "integer",
+          "example": 201
+        },
+        "tags": {
+          "type": "string",
+          "example": ""
+        },
+        "ignoreSSL": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "CheckEdit": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Test"
+        },
+        "url": {
+          "type": "string",
+          "example": "hulu.com"
+        },
+        "protocol": {
+          "type": "string",
+          "example": "https"
+        },
+        "path": {
+          "type": "string",
+          "example": "/"
+        },
+        "port": {
+          "type": "integer",
+          "example": 8000
+        },
+        "timeout": {
+          "type": "integer",
+          "example": 5
+        },
+        "interval": {
+          "type": "integer",
+          "example": 20
+        },
+        "threshold": {
+          "type": "integer",
+          "example": 1
+        },
+        "authentication": {
+          "type": "string",
+          "example": "{'email':'as@df.com','password':'abc456789'}"
+        },
+        "httpHeaders": {
+          "type": "string",
+          "example": ""
+        },
+        "assertStatusCode": {
+          "type": "integer",
+          "example": 201
+        },
+        "tags": {
+          "type": "string",
+          "example": ""
+        },
+        "ignoreSSL": {
+          "type": "boolean",
+          "example": false
+        }
+      }
+    },
+    "CheckCreateResp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "Check created!"
+        }
+      }
+    },
+    "CheckEditResp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "Check updated man!"
+        }
+      }
+    },
+    "CheckDeleteResp": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "Check deleted."
+        }
+      }
+    },
+    "CheckRun": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Test"
+        }
+      }
+    },
+    "CheckRemove": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Test"
+        }
+      }
+    },
+    "CheckReport": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Netflix"
+        }
+      }
+    },
+    "CheckReportResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 38
+        },
+        "name": {
+          "type": "string",
+          "example": "Netflix"
+        },
+        "availability": {
+          "type": "number",
+          "example": 78.09633
+        },
+        "outages": {
+          "type": "integer",
+          "example": 14
+        },
+        "downTime": {
+          "type": "integer",
+          "example": 19800
+        },
+        "upTime": {
+          "type": "integer",
+          "example": 78600
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2022-01-25T12:44:51.481Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-01-25T15:36:23.489Z"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

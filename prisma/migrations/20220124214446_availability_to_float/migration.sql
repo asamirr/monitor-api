@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Report" ALTER COLUMN "availability" SET DATA TYPE DOUBLE PRECISION;
