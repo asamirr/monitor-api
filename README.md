@@ -41,4 +41,4 @@ You could run the app now and start playing around with it. Just `npm run dev`, 
 ---
 ### Future Plans
 
-Currently there are some issues in Primsa with parsing the database url inside the docker host since I found multiple "Open" issues on their repo from other developers who faced the same problem.
+Currently there are some issues in Prisma with parsing the database url inside the docker host since I found multiple "Open" issues on their repo from other developers who faced the same problem.
