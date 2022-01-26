@@ -1,5 +1,5 @@
 # URL Monitoring Service
----
+
 A REST API to monitor the activity of some given URLs and store logs. Also, it notifies authorized users about their checks using both emails and ***Slack*** channels.
 
 The API is built using **Node.js**, **Express** and **Typescript**, **PostgreSQL** and **Prisma** for the database, **Prettier** for linting and finally, **Swagger** for documenting and testing the endpoints.
